@@ -26,7 +26,8 @@ const createUserController = (req, res, next) => {
       }
       User.create({
         name, email, password: hash,
-      });
+      })
+        .catch(next);
     })
     .then((user) => res.status(201).send({ data: { user, message: 'Created' } }))
     .catch(next);

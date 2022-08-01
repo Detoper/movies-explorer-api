@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// const { pattern } = require('../utils/linkPattern');
+const { pattern } = require('../utils/linkPattern');
 
 // описание схемы фильма
 const movieSchema = new mongoose.Schema({
@@ -27,32 +27,32 @@ const movieSchema = new mongoose.Schema({
   image: { // — ссылка на постер к фильму
     type: String,
     required: true,
-  //   validate: {
-  //     validator(v) {
-  //       return pattern.test(v);
-  //     },
-  //     message: () => 'URL неверна',
-  //   },
+    validate: {
+      validator(v) {
+        return pattern.test(v);
+      },
+      message: () => 'URL неверна',
+    },
   },
   trailerLink: { // — ссылка на трейлер фильма
     type: String,
     required: true,
-    // validate: {
-    //   validator(v) {
-    //     return pattern.test(v);
-    //   },
-    //   message: () => 'URL неверна',
-    // },
+    validate: {
+      validator(v) {
+        return pattern.test(v);
+      },
+      message: () => 'URL неверна',
+    },
   },
   thumbnail: { // — миниатюрное изображение постера к фильму
     type: String,
     required: true,
-  //   validate: {
-  //     validator(v) {
-  //       return pattern.test(v);
-  //     },
-  //     message: () => 'URL неверна',
-  //   },
+    validate: {
+      validator(v) {
+        return pattern.test(v);
+      },
+      message: () => 'URL неверна',
+    },
   },
   owner: { // — _id пользователя, который сохранил фильм.
     type: mongoose.Schema.Types.ObjectId,

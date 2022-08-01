@@ -50,20 +50,21 @@ const deleteMovieController = (req, res, next) => {
         throw err;
       }
       if (movie.owner.toString() === req.user._id) {
-        Movie.findByIdAndRemove(req.params.movieId);
+        Movie.findByIdAndRemove(req.params.movieId)
+          .then((film) => {
+            if (!film) {
+              const err = new Error('Объект не найден');
+              err.name = 'CastError';
+              throw err;
+            }
+            res.send({ data: film });
+          })
+          .catch(next);
       } else {
         const err = new Error('Нет прав');
         err.name = 'ForbiddenError';
         throw err;
       }
-    })
-    .then((movie) => {
-      if (!movie) {
-        const err = new Error('Объект не найден');
-        err.name = 'CastError';
-        throw err;
-      }
-      res.send({ data: movie });
     })
     .catch(next);
 };

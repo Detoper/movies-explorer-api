@@ -1,11 +1,10 @@
 const pattern = require('./linkPattern');
 
-const urlValMethod = (value) => {
-  if (value && value !== pattern) {
-    return new Error('Ссылка не соответствует модели');
+function urlValMethod(value) {
+  if (!value || pattern.test(value)) {
+    return value;
   }
-
-  return value;
-};
+  throw new Error('Ссылка не соответствует модели');
+}
 
 module.exports = { urlValMethod };

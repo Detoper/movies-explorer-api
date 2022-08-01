@@ -8,9 +8,7 @@ const {
   deleteMovieController,
 } = require('../controllers/movies');
 
-router.get('/movies', (req, res) => {
-  getMoviesController(req, res);
-});
+router.get('/movies', getMoviesController);
 
 router.post('/movies', celebrate({
   body: Joi.object().keys({
@@ -26,16 +24,16 @@ router.post('/movies', celebrate({
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
-}), (req, res) => {
-  createMovieController(req, res);
+}), (req, res, next) => {
+  createMovieController(req, res, next);
 });
 
 router.delete('/movies/:movieId', celebrate({
   params: Joi.object().keys({
     movieId: Joi.string().hex().length(24),
   }),
-}), (req, res) => {
-  deleteMovieController(req, res);
+}), (req, res, next) => {
+  deleteMovieController(req, res, next);
 });
 
 module.exports = router;
